@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app:
+    build: ./
+    image: reorg/payments
+    restart: "no"
+    environment:
+      - CELERY_BROKER_FOLDER=/reorg/broker
+      - CELERY_BACKEND_FOLDER=/reorg/backend
+    command: ./run_all_services.sh
+    ports:
+      - 8000:5000
+    volumes:
+      - ./payments:/reorg/payments
