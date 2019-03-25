@@ -24,7 +24,10 @@
 {% if search_result %}
     <div class="table_div">
     <table>
-        <thead><a href="">DOWNLOAD</a></thead>
+        <thead><a href="{{ url_for('open_payment.download_excel') }}?field={{ search_field
+                }}&keyword={{
+                search_keyword
+                }}">DOWNLOAD</a></thead>
     <tr>
     {% for _, title in column_titles %}
         <th>{{ title }}</th>

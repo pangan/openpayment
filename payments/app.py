@@ -9,6 +9,7 @@ from flask import Flask
 
 from payments.endpoints import open_payments
 
+import flask_excel
 
 _LOG = logging.getLogger()
 
@@ -56,4 +57,6 @@ App.init_flask()
 api = App.api
 api.logger_name = "flask.app"
 
+
 api.register_blueprint(open_payments.bp)
+open_payments.my_excel.init_excel(api)
