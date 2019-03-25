@@ -11,8 +11,9 @@ _FAKE = Faker()
 
 class UtilsTestCase(TestCase):
     def test_get_keys_from_dict(self):
-        testing_dict = {'key1': 1, 'key2': 2, 'key3': 3}
-        self.assertListEqual([('key1', 'key1'), ('key2', 'key2'), ('key3', 'key3')],
+        testing_dict = {'key_one': 1, 'key_two': 2, 'key_three': 3}
+        self.assertListEqual([('key_one', 'Key one'), ('key_two', 'Key two'), ('key_three',
+                                                                               'Key three')],
         utils.get_keys_from_dict(
             testing_dict))
 
@@ -21,12 +22,16 @@ class UtilsTestCase(TestCase):
         key1 = _FAKE.pystr()
         key2 = _FAKE.pystr()
 
-        test_data = [{key1: 'value1', key2: 'value2'},
-                     {key1: 'value_one', key2: 'value_two'},
-                     {key1: 'value1', key2: 'value_two'}]
+        values = []
+        for _ in range(4):
+            values.append(_FAKE.pystr())
 
-        expected_1 = [test_data[0][key1], test_data[1][key1]]
-        expected_2 = [test_data[0][key2], test_data[1][key2]]
+        test_data = [{key1: values[0], key2: values[1]},
+                     {key1: values[2], key2: values[3]},
+                     {key1: values[0], key2: values[3]}]
+
+        expected_1 = [values[0], values[2]]
+        expected_2 = [values[1], values[3]]
 
         expected_1.sort()
         expected_2.sort()
@@ -38,5 +43,13 @@ class UtilsTestCase(TestCase):
         actual_2.sort()
 
         self.assertListEqual(expected_1, actual_1)
-
         self.assertListEqual(expected_2, actual_2)
+
+    def test_get_data_from_dict(self):
+        test_list = [{'key1': 'value1', 'key2': 'kk'}, {'key1': 'value2', 'key2': 'bb'},
+                     {'key1': 'value1', 'key2': 'tt'}, {'key2': 'bb'}]
+
+        actual = utils.get_data_from_dict(test_list, 'key1', 'value1')
+        expected = [{'key1': 'value1', 'key2': 'kk'}, {'key1': 'value1', 'key2': 'tt'}]
+
+        self.assertListEqual(actual, expected)

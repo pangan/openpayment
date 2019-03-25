@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='payments_style.css') }}?version=0.23">
+    <link rel="stylesheet" href="{{ url_for('static', filename='payments_style.css') }}?version=0.24">
     <title>Payments</title>
 </head>
 <body>
@@ -18,7 +18,7 @@
 <form method="POST">
 {{ form.search_data }}
 {{ form.field_to_search }}
-{{ form.sub }}
+{{ form.submit_search }}
 </form>
 </div>
 {% if search_result %}
@@ -26,14 +26,14 @@
     <table>
         <thead><a href="">DOWNLOAD</a></thead>
     <tr>
-    {% for title in column_titles %}
+    {% for _, title in column_titles %}
         <th>{{ title }}</th>
     {% endfor %}
     </tr>
 
     {%  for result in search_result %}
         <tr>
-        {% for column in column_titles %}
+        {% for column, _ in column_titles %}
             <td>{{ result[column] }}</td>
         {% endfor %}
         </tr>

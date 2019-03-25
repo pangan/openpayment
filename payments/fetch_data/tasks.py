@@ -12,6 +12,7 @@ from payments.settings import (OPEN_PAYMENTS_API_ENDPOINT, CELERY_TASK_ID,
                                FETCHING_DATA_PERIOD_SECOND)
 from payments.fetch_data.worker import celery_app
 
+from payments.common.utils import get_keys_from_dict
 
 _LOG = logging.getLogger()
 
@@ -34,13 +35,19 @@ def setup_periodic_tasks(**kwargs):
 
 @celery_app.task
 def fetch():  # pragma: no cover
-    return get_payments_data_from_api()
+    data = get_payments_data_from_api()
+    data_fields.apply_async((data,), task_id='fields-{}'.format(CELERY_TASK_ID))
+    return data
 
 
-def get_data_from_celery():
-    if os.getenv('PAYMENTS_TESTING_MODE'):
-        return
-    result = AsyncResult(CELERY_TASK_ID, app=celery_app)
+@celery_app.task
+def data_fields(data):
+    ret_fields = get_keys_from_dict(data[0])
+    return ret_fields
+
+
+def _get_from_celery(task_id):
+    result = AsyncResult(task_id, app=celery_app)
     ret_data = None
 
     sleep_time = 1
@@ -57,3 +64,13 @@ def get_data_from_celery():
     return ret_data
 
 
+def get_data_from_celery():
+    if os.getenv('PAYMENTS_TESTING_MODE'):
+        return
+    return _get_from_celery(CELERY_TASK_ID)
+
+
+def get_fields_from_celery():
+    if os.getenv('PAYMENTS_TESTING_MODE'):
+        return
+    return _get_from_celery('fields-{}'.format(CELERY_TASK_ID))

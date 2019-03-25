@@ -17,10 +17,12 @@ tr:hover {background-color: #dde2e5;}
 th {
     background-color: #253e5f;
     color: white;
+    white-space: nowrap;
 }
 
 td {
     font-size: small;
+    white-space: nowrap;
 }
 .table_div{overflow-x:auto;}
 
