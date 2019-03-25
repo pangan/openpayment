@@ -29,7 +29,6 @@ if not os.getenv('PAYMENTS_TESTING_MODE'):
     if not os.path.exists(backend_abs):
         os.makedirs(backend_abs)
 
-
     celery_app.conf.update({
         'broker_url': broker_url,
         'broker_transport_options': {

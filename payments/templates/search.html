@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='payments_style.css') }}?version=0.23">
+    <title>Payments</title>
 </head>
 <body>
-<select>
-{%  for column in variables.columns %}
 
-    <option>{{ column }}</option>
-{% endfor %}
-</select>
-<input type="text">
-<input type="submit">
+<div class="title"><h1>PAYMENTS</h1></div>
+<div class="search_header">
+<form method="POST">
+{{ form.search_field.label }}: {{ form.search_field }}
+</form>
+<form method="POST">
+{{ form.search_data }}
+{{ form.field_to_search }}
+{{ form.sub }}
+</form>
+</div>
+{% if search_result %}
+    <div class="table_div">
+    <table>
+        <thead><a href="">DOWNLOAD</a></thead>
+    <tr>
+    {% for title in column_titles %}
+        <th>{{ title }}</th>
+    {% endfor %}
+    </tr>
+
+    {%  for result in search_result %}
+        <tr>
+        {% for column in column_titles %}
+            <td>{{ result[column] }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endif %}
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '/_autocomplete'
+            }).done(function (data){
+                $('#search_data_complete').autocomplete({
+                    source: data,
+                    minLength: 1
+                });
+            });
+        });
+
+    $(function() {
+    $('#search_field').change(function() {
+        this.form.submit();
+    });
+});
+</script>
+
 </body>
 </html>

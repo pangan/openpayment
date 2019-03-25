@@ -1,0 +1,35 @@
+body {
+    font-family: Arial;
+}
+
+.title{
+    color: #dde2e5;
+    background-color: #374965;
+    height: 50px;
+    font-size: larger;
+    vertical-align: middle;
+}
+
+tr:hover {background-color: #dde2e5;}
+
+
+
+th {
+    background-color: #253e5f;
+    color: white;
+}
+
+td {
+    font-size: small;
+}
+.table_div{overflow-x:auto;}
+
+.search_box {
+    width: 30%;
+}
+
+.search_header{
+    background-color: #f4f1ee;
+    height: 50px;
+    vertical-align: middle;
+}

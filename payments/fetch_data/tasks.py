@@ -12,6 +12,7 @@ from payments.settings import (OPEN_PAYMENTS_API_ENDPOINT, CELERY_TASK_ID,
                                FETCHING_DATA_PERIOD_SECOND)
 from payments.fetch_data.worker import celery_app
 
+
 _LOG = logging.getLogger()
 
 
@@ -25,15 +26,15 @@ def get_payments_data_from_api():
         _LOG.error('payments request error: %s' % str(e))
     return payments_data
 
+@celery_app.on_after_configure.connect
+def setup_periodic_tasks(**kwargs):
+    celery_app.add_periodic_task(FETCHING_DATA_PERIOD_SECOND, fetch.s(),
+                                 name='my_task', task_id=CELERY_TASK_ID)
+
 
 @celery_app.task
 def fetch():  # pragma: no cover
-    fetch.apply_async(None, countdown=FETCHING_DATA_PERIOD_SECOND, task_id=CELERY_TASK_ID)
     return get_payments_data_from_api()
-
-
-def start_fetching():
-    fetch.apply_async(None, task_id=CELERY_TASK_ID)
 
 
 def get_data_from_celery():
