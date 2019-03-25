@@ -7,7 +7,7 @@ from flask import Blueprint, jsonify, render_template, request, Response, json
 
 from payments.fetch_data.tasks import get_data_from_celery, get_fields_from_celery
 from payments.common.utils import (get_keys_from_dict, get_all_values_of_a_key_from_list_of_dict,
-                                   get_keys_from_dict_2, get_data_from_dict)
+                                   get_data_from_dict)
 
 
 from wtforms import StringField, Form, SelectField, SubmitField, HiddenField
@@ -51,7 +51,6 @@ def search_payment():
 
         autocomplete_data = get_all_values_of_a_key_from_list_of_dict(get_data_from_celery(),
                                                                           form.search_field.data)
-
 
         if form.submit_search.data:
             search_keyword = form.search_data.data

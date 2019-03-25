@@ -72,5 +72,5 @@ def get_data_from_celery():
 
 def get_fields_from_celery():
     if os.getenv('PAYMENTS_TESTING_MODE'):
-        return
+        return [('test', 'test')]
     return _get_from_celery('fields-{}'.format(CELERY_TASK_ID))
