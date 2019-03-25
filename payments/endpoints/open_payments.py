@@ -6,7 +6,7 @@ import logging
 from flask import Blueprint, jsonify, render_template, request, Response, json
 
 from payments.fetch_data.tasks import get_data_from_celery
-from payments.common.utils import get_keys_from_dict
+from payments.common.utils import get_keys_from_dict, get_all_values_of_a_key_from_list_of_dict
 
 
 from wtforms import StringField, Form, SelectField, SubmitField
@@ -65,7 +65,9 @@ def automine():
     autocomplete_data = ['london', 'stockholm']
     form = SearchForm(request.form)
     if request.method == 'POST':
-        autocomplete_data = ['amir', 'tehran', form.search_field.data]
+        #autocomplete_data = ['amir', 'tehran', form.search_field.data]
+        autocomplete_data = get_all_values_of_a_key_from_list_of_dict(get_data_from_celery(),
+                                                                      form.search_field.data)
         if form.sub.data:
             search_result = 'DDD'
 

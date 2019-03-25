@@ -4,7 +4,7 @@ By Amir Mofakhar <amir@mofakhar.info>
 """
 
 from unittest import TestCase
-from payments import api
+from payments.app import api
 
 
 class BaseTestCase(TestCase):

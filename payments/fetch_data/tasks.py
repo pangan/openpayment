@@ -1,6 +1,7 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
+import os
 import logging
 from time import sleep
 
@@ -36,6 +37,8 @@ def start_fetching():
 
 
 def get_data_from_celery():
+    if os.getenv('PAYMENTS_TESTING_MODE'):
+        return
     result = AsyncResult(CELERY_TASK_ID, app=celery_app)
     ret_data = None
 
