@@ -5,21 +5,25 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='payments_style.css') }}?version=0.24">
+    <link rel="stylesheet" href="{{ url_for('static', filename='payments_style.css') }}?version=0.29">
     <title>Payments</title>
 </head>
 <body>
 
-<div class="title"><h1>PAYMENTS</h1></div>
-<div class="search_header">
-<form method="POST">
-{{ form.search_field.label }}: {{ form.search_field }}
-</form>
-<form method="POST">
-{{ form.search_data }}
-{{ form.field_to_search }}
-{{ form.submit_search }}
-</form>
+<div class="title" id="parent">
+    <div id="child">PAYMENTS</div>
+</div>
+<div class="search_header" id="parent">
+    <div id="child">
+        <form method="POST">
+        {{ form.search_field.label }}: {{ form.search_field }}
+        </form>
+        <form method="POST">
+        {{ form.search_data }}
+        {{ form.field_to_search }}
+        {{ form.submit_search }}
+        </form>
+    </div>
 </div>
 {% if search_result %}
     <div class="table_div">

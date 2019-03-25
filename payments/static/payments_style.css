@@ -6,7 +6,16 @@ body {
     color: #dde2e5;
     background-color: #374965;
     height: 50px;
+    width: 100%;
     font-size: larger;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+#parent {display: table;}
+
+#child {
+    display: table-cell;
     vertical-align: middle;
 }
 
@@ -33,5 +42,7 @@ td {
 .search_header{
     background-color: #f4f1ee;
     height: 50px;
+    width: 100%;
     vertical-align: middle;
+    padding-left: 20px;
 }
