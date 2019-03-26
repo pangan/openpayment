@@ -1,7 +1,6 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-import os
 import logging
 from time import sleep
 
@@ -42,7 +41,7 @@ def fetch():  # pragma: no cover
 
 @celery_app.task
 def data_fields(data):
-    ret_fields = get_keys_from_dict(data[0])
+    ret_fields = get_keys_from_dict(data)
     return ret_fields
 
 
@@ -65,12 +64,8 @@ def _get_from_celery(task_id):
 
 
 def get_data_from_celery():
-    if os.getenv('PAYMENTS_TESTING_MODE'):
-        return
     return _get_from_celery(CELERY_TASK_ID)
 
 
 def get_fields_from_celery():
-    if os.getenv('PAYMENTS_TESTING_MODE'):
-        return [('test', 'test')]
     return _get_from_celery('fields-{}'.format(CELERY_TASK_ID))

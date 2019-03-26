@@ -1,7 +1,8 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-
+import logging
+_LOG = logging.getLogger()
 
 def _make_readable(input_string):
     output_string = input_string.replace('_', ' ')
@@ -21,6 +22,7 @@ def get_data_from_dict(list_of_dicts, field_to_search, keyword):
 
 
 def get_keys_from_dict(input_list_of_dict):
+    _LOG.info('----->{}'.format(input_list_of_dict))
     keys_set = set().union(*(d.keys() for d in input_list_of_dict))
     fields = list(keys_set)
     fields.sort()

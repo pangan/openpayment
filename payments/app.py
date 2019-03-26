@@ -7,9 +7,8 @@ import logging
 
 from flask import Flask
 
-from payments.endpoints import open_payments
+from payments.endpoints import open_payments, download
 
-import flask_excel
 
 _LOG = logging.getLogger()
 
@@ -20,7 +19,6 @@ LOG_FORMATTER = logging.Formatter(
 
 
 class App(object):  # pragma: no cover
-    
 
     api = None
     declarative_base = None
@@ -36,8 +34,6 @@ class App(object):  # pragma: no cover
             cls.api = Flask(__name__)
 
         cls.init_logger()
-
-        _LOG.info('server started!')
 
 
     @classmethod
@@ -59,4 +55,6 @@ api.logger_name = "flask.app"
 
 
 api.register_blueprint(open_payments.bp)
-open_payments.my_excel.init_excel(api)
+api.register_blueprint(download.bp)
+
+download.output_excel.init_excel(api)

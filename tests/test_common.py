@@ -10,12 +10,23 @@ from payments.common import utils
 _FAKE = Faker()
 
 class UtilsTestCase(TestCase):
-    def test_get_keys_from_dict(self):
-        testing_dict = {'key_one': 1, 'key_two': 2, 'key_three': 3}
-        self.assertListEqual([('key_one', 'Key one'), ('key_two', 'Key two'), ('key_three',
-                                                                               'Key three')],
-        utils.get_keys_from_dict(
-            testing_dict))
+    def test_get_keys_from_list_of_dict(self):
+        testing_list = [{'key_one': 1, 'key_two': 2, 'key_three': 3},
+                        {'key_one': 1, 'key_two': 2, 'key_four': 4},
+                        {'key_five': 5}
+                        ]
+
+
+        expected_list = [('key_one', 'Key one'),
+                         ('key_two', 'Key two'),
+                         ('key_three', 'Key three'),
+                         ('key_four', 'Key four'),
+                         ('key_five', 'Key five')]
+
+        expected_list.sort()
+
+        self.assertListEqual(expected_list, utils.get_keys_from_dict(testing_list))
+
 
     def test_get_all_values_of_a_key_from_list_of_dict(self):
 
