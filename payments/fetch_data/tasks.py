@@ -27,7 +27,7 @@ def get_payments_data_from_api():
 
 
 @celery_app.on_after_configure.connect
-def setup_periodic_tasks(**kwargs):
+def setup_periodic_tasks(**kwargs):  # pragma: no cover
     # Fetching for the first time
     fetch.apply_async((), task_id=CELERY_TASK_ID)
 
@@ -44,7 +44,7 @@ def fetch():  # pragma: no cover
 
 
 @celery_app.task
-def data_fields(data):
+def data_fields(data):  # pragma: no cover
     ret_fields = get_keys_from_dict(data)
     return ret_fields
 
