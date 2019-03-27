@@ -28,6 +28,10 @@ def get_payments_data_from_api():
 
 @celery_app.on_after_configure.connect
 def setup_periodic_tasks(**kwargs):
+    # Fetching for the first time
+    fetch.apply_async((), task_id=CELERY_TASK_ID)
+
+    # Fetching periodically
     celery_app.add_periodic_task(FETCHING_DATA_PERIOD_SECOND, fetch.s(),
                                  name='my_task', task_id=CELERY_TASK_ID)
 

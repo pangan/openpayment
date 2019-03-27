@@ -7,7 +7,7 @@ services:
     environment:
       - CELERY_BROKER_FOLDER=/reorg/broker
       - CELERY_BACKEND_FOLDER=/reorg/backend
-    command: ./run_all_services.sh
+    command: ./entrypoint.sh
     ports:
       - 8000:5000
     volumes:
