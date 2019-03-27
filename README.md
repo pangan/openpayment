@@ -30,7 +30,7 @@ CELERY_TASK_ID = '122'
 
 Just run the below command:
 
-    `docker-compose up`
+   `docker-compose up`
 
 It will create the image and runs all the services in docker.
 Check the screen until it runs the celery worker and be ready. 
