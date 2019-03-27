@@ -7,4 +7,3 @@ FETCHING_DATA_PERIOD_SECOND = 100
 CELERY_BROKER_FOLDER = '/Users/pangan/PycharmProjects/reorg/broker'
 CELERY_BACKEND_FOLDER = '/Users/pangan/PycharmProjects/reorg/backend'
 CELERY_TASK_ID = '122'
-

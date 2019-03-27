@@ -3,13 +3,11 @@ By Amir Mofakhar <amir@mofakhar.info>
 """
 import logging
 
-from flask import Blueprint, render_template, request, Response, json
-
-from payments.fetch_data.tasks import get_data_from_celery, get_fields_from_celery
-from payments.common.utils import get_all_values_of_a_key_from_list_of_dict, get_data_from_dict
+from flask import Blueprint, Response, json, render_template, request
 
 from payments.common.forms import SearchForm
-
+from payments.common.utils import get_all_values_of_a_key_from_list_of_dict, get_data_from_dict
+from payments.fetch_data.tasks import get_data_from_celery, get_fields_from_celery
 
 bp = Blueprint('open_payment', __name__)
 
@@ -33,7 +31,7 @@ def search_payment():
     if request.method == 'POST':
 
         autocomplete_data = get_all_values_of_a_key_from_list_of_dict(get_data_from_celery(),
-                                                                          form.search_field.data)
+                                                                      form.search_field.data)
 
         if form.submit_search.data:
             search_keyword = form.search_data.data
@@ -59,6 +57,3 @@ def search_payment():
 @bp.route('/_autocomplete', methods=['GET'])
 def autocomplete():
     return Response(json.dumps(autocomplete_data), mimetype='application/json')
-
-
-

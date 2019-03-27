@@ -2,9 +2,8 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-from mock import patch
-
 from faker import Faker
+from mock import patch
 
 from tests.base import BaseTestCase
 
@@ -71,8 +70,8 @@ class EndpointsTestCase(BaseTestCase):
                 mocked_get_data.return_value = [{test_field_name: test_data}]
                 mocked_get_fields.return_value = [(test_field_name, test_field_name)]
                 response = self.client.get('/download_excel',
-                                        query_string={'field': test_field_name,
-                                                      'keyword': test_data})
+                                           query_string={'field': test_field_name,
+                                                         'keyword': test_data})
 
         self.assertEqual(response.mimetype, 'application/vnd.ms-excel')
         self.assertIn('payments.xls', response.headers['Content-Disposition'])

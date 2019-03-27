@@ -4,10 +4,8 @@ By Amir Mofakhar <amir@mofakhar.info>
 from flask import Blueprint, request
 import flask_excel
 
-from payments.fetch_data.tasks import get_data_from_celery, get_fields_from_celery
-
 from payments.common.utils import get_data_from_dict
-
+from payments.fetch_data.tasks import get_data_from_celery, get_fields_from_celery
 
 output_excel = flask_excel
 

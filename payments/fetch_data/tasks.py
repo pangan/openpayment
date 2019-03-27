@@ -4,14 +4,13 @@ By Amir Mofakhar <amir@mofakhar.info>
 import logging
 from time import sleep
 
-import requests
 from celery.result import AsyncResult
-
-from payments.settings import (OPEN_PAYMENTS_API_ENDPOINT, CELERY_TASK_ID,
-                               FETCHING_DATA_PERIOD_SECOND)
-from payments.fetch_data.worker import celery_app
+import requests
 
 from payments.common.utils import get_keys_from_dict
+from payments.fetch_data.worker import celery_app
+from payments.settings import (CELERY_TASK_ID, FETCHING_DATA_PERIOD_SECOND,
+                               OPEN_PAYMENTS_API_ENDPOINT)
 
 _LOG = logging.getLogger()
 
@@ -25,6 +24,7 @@ def get_payments_data_from_api():
     except Exception as e:
         _LOG.error('payments request error: %s' % str(e))
     return payments_data
+
 
 @celery_app.on_after_configure.connect
 def setup_periodic_tasks(**kwargs):
@@ -45,7 +45,7 @@ def data_fields(data):
     return ret_fields
 
 
-def _get_from_celery(task_id):
+def _get_from_celery(task_id):  # pragma: no cover
     result = AsyncResult(task_id, app=celery_app)
     ret_data = None
 

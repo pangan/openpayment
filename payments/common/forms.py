@@ -1,7 +1,7 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-from wtforms import StringField, Form, SelectField, SubmitField, HiddenField
+from wtforms import Form, HiddenField, SelectField, StringField, SubmitField
 
 from payments.fetch_data.tasks import get_fields_from_celery
 

@@ -1,19 +1,17 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-from unittest import TestCase
-
 from faker import Faker
 from mock import patch
 
-from tests.base import BaseTestCase
 from payments.fetch_data.tasks import get_data_from_celery, get_payments_data_from_api
-import mock
+from tests.base import BaseTestCase
 
 _FAKE = Faker()
 
+
 class MockedCeleryResult:
-    def __init__(self, return_data=None, raise_exception=False ):
+    def __init__(self, return_data=None, raise_exception=False):
         self.return_data = return_data
         self.raise_exception = raise_exception
 
@@ -72,4 +70,3 @@ class TasksTestCase(BaseTestCase):
 
             mocked_request.get.side_effect = Exception()
             self.assertIsNone(get_payments_data_from_api())
-

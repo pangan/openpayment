@@ -2,13 +2,12 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-import sys
 import logging
+import sys
 
 from flask import Flask
 
-from payments.endpoints import open_payments, download
-
+from payments.endpoints import download, open_payments
 
 _LOG = logging.getLogger()
 
@@ -16,14 +15,11 @@ LOG_FORMATTER = logging.Formatter(
             '[%(asctime)s] [%(process)d] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S +0000')
 
 
-
-
 class App(object):  # pragma: no cover
 
     api = None
     declarative_base = None
     session_object = None
-
 
     @classmethod
     def init_flask(cls, root_path=None):
@@ -34,7 +30,6 @@ class App(object):  # pragma: no cover
             cls.api = Flask(__name__)
 
         cls.init_logger()
-
 
     @classmethod
     def init_logger(cls):

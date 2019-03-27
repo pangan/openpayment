@@ -2,12 +2,13 @@
 By Amir Mofakhar <amir@mofakhar.info>
 """
 from unittest import TestCase
+
 from faker import Faker
 
 from payments.common import utils
 
-
 _FAKE = Faker()
+
 
 class UtilsTestCase(TestCase):
     def test_get_keys_from_list_of_dict(self):
@@ -15,7 +16,6 @@ class UtilsTestCase(TestCase):
                         {'key_one': 1, 'key_two': 2, 'key_four': 4},
                         {'key_five': 5}
                         ]
-
 
         expected_list = [('key_one', 'Key one'),
                          ('key_two', 'Key two'),
@@ -26,7 +26,6 @@ class UtilsTestCase(TestCase):
         expected_list.sort()
 
         self.assertListEqual(expected_list, utils.get_keys_from_dict(testing_list))
-
 
     def test_get_all_values_of_a_key_from_list_of_dict(self):
 

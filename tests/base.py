@@ -2,8 +2,6 @@
 """
 By Amir Mofakhar <amir@mofakhar.info>
 """
-
-#from unittest import TestCase
 from flask_testing import TestCase
 
 from mock import patch
@@ -28,16 +26,10 @@ class BaseTestCase(TestCase):
         mocked_celery_result.return_value = MockedCeleryResult()
 
         from payments.app import api
-        # api.testing = True
-        # self.api = api
         self.app = api.test_client()
 
         api.config['TESTING'] = True
         api.config['DEBUG'] = False
-
-        #self.api = api
-
-        #self.app_2 = api.test_client()
 
         return api
 
