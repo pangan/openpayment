@@ -7,7 +7,7 @@ field and download the result as a XLS file.
  It is possible to use RabbitMQ or Redis in production.
   
 ## Settings
-`settings.py` is used for application settings :
+`payments/settings.py` is used for application settings :
 
 ```
 # URL for fetching payments data
