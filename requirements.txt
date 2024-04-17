@@ -3,7 +3,7 @@ celery>=4.2.2
 Flask==2.3.2
 Flask-Excel==0.0.7
 Flask-Testing==0.7.1
-gunicorn==19.9.0
+gunicorn==22.0.0
 pyexcel-xls==0.5.8
 requests==2.21.0
 wtforms==2.2.1
